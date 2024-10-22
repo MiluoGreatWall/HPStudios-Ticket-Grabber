@@ -90,14 +90,23 @@ function selectMonthAndYear(targetMonth, targetYear) {
     });
 }
 
+// Function to check and extend the session
+function extendSessionIfNeeded() {
+    const sessionWarningElement = document.querySelector('.warning .extendSession');
+    if (sessionWarningElement) {
+        console.log('Session is about to expire. Extending session...');
+        sessionWarningElement.click();
+    }
+}
+
 // Main function to check for tickets
 function checkForTickets(adultTicketsWanted = 2, checkFrequency = 15) {
     setAdultTickets(adultTicketsWanted);
 
     // Define the months and dates to check
     const monthsToCheck = [
-        { month: 12, year: 2024, dates: [28, 29, 30, 31] },    // December 2024
-        { month: 1, year: 2025, dates: [1, 2, 3, 4] }       // January 2025
+        { month: 12, year: 2024, dates: [27, 28, 29, 30, 31] },    // December 2024
+        { month: 1, year: 2025, dates: [1, 2, 3, 4] }          // January 2025
     ];
 
     function check() {
@@ -174,6 +183,9 @@ function checkForTickets(adultTicketsWanted = 2, checkFrequency = 15) {
     }
 
     check();
+
+    // Set up an interval to extend the session periodically
+    setInterval(extendSessionIfNeeded, 5 * 60 * 1000); // Check every 5 minutes
 }
 
 // Start the script
